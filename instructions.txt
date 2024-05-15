@@ -1,0 +1,13 @@
+1. Instalar pip requirements
+
+2. Crear gramatica en archivo .g4 y correr comando para generar lexer y parser:
+
+    antlr4 -v 4.13.0 -Dlanguage=Python3 little_duck.g4
+
+3. Codificar archivo Driver.py 
+
+4. Probar inputs con:
+
+    python Driver.py input.txt
+
+NOTA: Si haces cambios en gramática, borrar archivos generados y volver a correr primer comando.

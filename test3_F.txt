@@ -1,0 +1,18 @@
+program fallo_maximo;
+    var hola: int
+
+    void omeprazol (x, y : float)
+        var result : float;
+        {
+            result = x * y
+        ];
+
+
+    main {
+
+        while { 
+            omeprazol(1.0, hola);
+        } do (hola < 100.0);
+        
+        print(a);
+    }

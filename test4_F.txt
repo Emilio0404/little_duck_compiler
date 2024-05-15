@@ -1,0 +1,21 @@
+program videojuego;
+    var vida: int;
+        damage: int;
+        enemigos: int;
+        monedas: float;
+
+    void pegarle_aEnemigo() [
+        var did_hit: INT; 
+        {
+            if (did_hit  ) {
+                enemigos = enemigos - 1;
+            } else
+        }
+    ];
+
+    main {
+        print((vida / enemigos * monedas));
+        do {
+            print('jajaja');
+        }
+    } end

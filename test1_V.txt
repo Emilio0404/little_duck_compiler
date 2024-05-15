@@ -1,0 +1,21 @@
+program multiplicar;
+    var hola: float;
+
+    void multiplicar_floats (x : float, y : float)[
+        var result : float;
+        {
+            result = x * y;
+        }
+    ];
+
+
+    main {
+
+        do { 
+            multiplicar_floats(1.0, hola);
+            hola = 4; 
+            hola = hola + 1;
+        } while (hola < 100.0);
+        
+        print("El resultado es bastante");
+    } end
