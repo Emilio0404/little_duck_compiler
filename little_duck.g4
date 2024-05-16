@@ -1,6 +1,6 @@
 grammar little_duck;
 
-programa: 'program' ID ';' vars funcs 'main' body 'end';
+programa: 'program' ID ';' vars funcs* 'main' body 'end';
 
 type: 'int' | 'float';
 
@@ -47,7 +47,7 @@ has_exp: (list_call_exp)?;
 list_call_exp: expression more_call_expressions;
 more_call_expressions: (',' list_call_exp)?;
 
-funcs: ('void' ID '(' has_params ')' '[' add_vars body ']' ';')*;
+funcs: ('void' ID '(' has_params ')' '[' add_vars body ']' ';');
 has_params: (list_params)?;
 list_params: ID ':' type more_params;
 more_params: (',' list_params)?;

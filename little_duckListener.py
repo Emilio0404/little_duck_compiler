@@ -1,20 +1,34 @@
-# Generated from little_duck.g4 by ANTLR 4.13.0
 from antlr4 import *
-if "." in __name__:
-    from .little_duckParser import little_duckParser
-else:
-    from little_duckParser import little_duckParser
+from little_duckParser import little_duckParser
+from semantics import DirFunc, VarsTable, Variable
 
 # This class defines a complete listener for a parse tree produced by little_duckParser.
 class little_duckListener(ParseTreeListener):
+    def __init__(self):
+        self.current_function = None
+        self.current_type = None
+        #self.current_vartable = None
+        self.dir_func = None
+        self.variables_to_add = []
 
     # Enter a parse tree produced by little_duckParser#programa.
     def enterPrograma(self, ctx:little_duckParser.ProgramaContext):
-        pass
+        # 1. Create dirFunc
+        self.dir_func = DirFunc()
+        
+        # 2. Add id name to DirFunc
+        # Funciona como contexto global
+        program_name = ctx.ID().getText()
+        self.dir_func.addFunction(program_name, 'void') # 3. creating a vartable is done automatically, 8. type is always void
+        self.current_function = program_name
 
     # Exit a parse tree produced by little_duckParser#programa.
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
-        pass
+        self.dir_func.printFunctions()
+
+        # 6. Delete DirFunc and current VarTable
+        del self.dir_func
+        #del self.current_vartable
 
 
     # Enter a parse tree produced by little_duckParser#type.
@@ -23,7 +37,15 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#type.
     def exitType(self, ctx:little_duckParser.TypeContext):
-        pass
+        # 4. current_type = type
+        current_type = ctx.getText()
+
+        # 5. Search for id-name in current VarTable
+        #    if found -> Error “multiple declaration”
+        #    if not -> add id-name and current-type to current VarTable
+        for var in self.variables_to_add:
+            self.dir_func.addVariable(self.current_function, var, current_type)
+        self.variables_to_add = []
 
 
     # Enter a parse tree produced by little_duckParser#cte.
@@ -37,7 +59,9 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#list_ids.
     def enterList_ids(self, ctx:little_duckParser.List_idsContext):
-        pass
+        # For 5. save variables to a list and add them after having type
+        variable_name = ctx.ID().getText()
+        self.variables_to_add.append(variable_name)
 
     # Exit a parse tree produced by little_duckParser#list_ids.
     def exitList_ids(self, ctx:little_duckParser.List_idsContext):
@@ -289,7 +313,13 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#funcs.
     def enterFuncs(self, ctx:little_duckParser.FuncsContext):
-        pass
+        # 7. Prepare DirFunc to add new function
+        func = ctx.ID().getText()
+        self.current_function = func
+        self.current_type = 'void' # 8. function type is always void
+        
+        # 9. Add function to dir_func, 10. VarsTable creation is done automatically
+        self.dir_func.addFunction(self.current_function, self.current_type)
 
     # Exit a parse tree produced by little_duckParser#funcs.
     def exitFuncs(self, ctx:little_duckParser.FuncsContext):
@@ -307,7 +337,8 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#list_params.
     def enterList_params(self, ctx:little_duckParser.List_paramsContext):
-        pass
+        id_name = ctx.ID().getText()
+        self.variables_to_add.append(id_name)
 
     # Exit a parse tree produced by little_duckParser#list_params.
     def exitList_params(self, ctx:little_duckParser.List_paramsContext):

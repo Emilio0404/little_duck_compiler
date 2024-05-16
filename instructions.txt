@@ -10,4 +10,4 @@
 
     python Driver.py input.txt
 
-NOTA: Si haces cambios en gramática, borrar archivos generados y volver a correr primer comando.
+NOTA: Si haces cambios en gramática, volver a correr

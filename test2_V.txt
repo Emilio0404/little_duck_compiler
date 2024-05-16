@@ -1,5 +1,5 @@
 program LEGOS;
-    var noPiezas: int;
+    var noPiezas, noMinifiguras: int;
         precio_por_pieza: float;
 
     void calcular_precio (piezas : int, precio : float)[
@@ -9,10 +9,16 @@ program LEGOS;
         }
     ];
 
+    void agregar_inventario (lego_id : int)[
+        {
+            
+        }
+    ];
+
     main {
         noPiezas = 534;
         precio_por_pieza = 1.01;
 
         print("EL PRECIO TOTAL ES:");
-        calcular_precio(global1, global2);
+        calcular_precio(1, 2);
     } end
