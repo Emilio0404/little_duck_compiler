@@ -2,7 +2,7 @@
 
 2. Crear gramatica en archivo .g4 y correr comando para generar lexer y parser:
 
-    antlr4 -v 4.13.0 -Dlanguage=Python3 little_duck.g4
+    antlr4 -v 4.13.0 -Dlanguage=Python3 -visitor little_duck.g4
 
 3. Codificar archivo Driver.py 
 

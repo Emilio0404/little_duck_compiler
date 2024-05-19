@@ -255,6 +255,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitPrograma" ):
                 listener.exitPrograma(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPrograma" ):
+                return visitor.visitPrograma(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -317,6 +323,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitType" ):
                 listener.exitType(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType" ):
+                return visitor.visitType(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -366,6 +378,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCte" ):
                 listener.exitCte(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCte" ):
+                return visitor.visitCte(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -418,6 +436,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitList_ids" ):
                 listener.exitList_ids(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_ids" ):
+                return visitor.visitList_ids(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -469,6 +493,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitMore_ids" ):
                 listener.exitMore_ids(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMore_ids" ):
+                return visitor.visitMore_ids(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -512,6 +542,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVars" ):
                 listener.exitVars(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVars" ):
+                return visitor.visitVars(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -572,6 +608,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitVariables" ):
                 listener.exitVariables(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariables" ):
+                return visitor.visitVariables(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -622,6 +664,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitMas_variables" ):
                 listener.exitMas_variables(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMas_variables" ):
+                return visitor.visitMas_variables(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -671,6 +719,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitBody" ):
                 listener.exitBody(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBody" ):
+                return visitor.visitBody(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -718,6 +772,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitList_body" ):
                 listener.exitList_body(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_body" ):
+                return visitor.visitList_body(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -781,6 +841,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMore_statements" ):
                 listener.exitMore_statements(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMore_statements" ):
+                return visitor.visitMore_statements(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -852,6 +918,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatement" ):
+                return visitor.visitStatement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -935,6 +1007,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitAssign" ):
                 listener.exitAssign(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssign" ):
+                return visitor.visitAssign(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -987,6 +1065,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitExpression" ):
                 listener.exitExpression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpression" ):
+                return visitor.visitExpression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1035,6 +1119,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitMas_exp" ):
                 listener.exitMas_exp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMas_exp" ):
+                return visitor.visitMas_exp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1082,6 +1172,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitList_exp" ):
                 listener.exitList_exp(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_exp" ):
+                return visitor.visitList_exp(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1133,6 +1229,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExp" ):
                 listener.exitExp(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExp" ):
+                return visitor.visitExp(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1211,6 +1313,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitTermino" ):
                 listener.exitTermino(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTermino" ):
+                return visitor.visitTermino(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1287,6 +1395,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitFactor" ):
                 listener.exitFactor(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFactor" ):
+                return visitor.visitFactor(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1345,6 +1459,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitFactor_op" ):
                 listener.exitFactor_op(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFactor_op" ):
+                return visitor.visitFactor_op(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1402,6 +1522,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitValue" ):
                 listener.exitValue(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitValue" ):
+                return visitor.visitValue(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1457,6 +1583,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitPrint" ):
                 listener.exitPrint(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPrint" ):
+                return visitor.visitPrint(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1511,6 +1643,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitList_prints" ):
                 listener.exitList_prints(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_prints" ):
+                return visitor.visitList_prints(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1571,6 +1709,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitPrint_more_expressions" ):
                 listener.exitPrint_more_expressions(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPrint_more_expressions" ):
+                return visitor.visitPrint_more_expressions(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1625,6 +1769,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCycle" ):
                 listener.exitCycle(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCycle" ):
+                return visitor.visitCycle(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1688,6 +1838,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitCondition" ):
                 listener.exitCondition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCondition" ):
+                return visitor.visitCondition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1741,6 +1897,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitEnd_condition" ):
                 listener.exitEnd_condition(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEnd_condition" ):
+                return visitor.visitEnd_condition(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1796,6 +1958,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitF_call" ):
                 listener.exitF_call(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitF_call" ):
+                return visitor.visitF_call(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1845,6 +2013,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitHas_exp" ):
                 listener.exitHas_exp(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitHas_exp" ):
+                return visitor.visitHas_exp(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1899,6 +2073,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitList_call_exp" ):
                 listener.exitList_call_exp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_call_exp" ):
+                return visitor.visitList_call_exp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1942,6 +2122,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMore_call_expressions" ):
                 listener.exitMore_call_expressions(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMore_call_expressions" ):
+                return visitor.visitMore_call_expressions(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2005,6 +2191,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitFuncs" ):
                 listener.exitFuncs(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFuncs" ):
+                return visitor.visitFuncs(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2065,6 +2257,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitHas_params" ):
                 listener.exitHas_params(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitHas_params" ):
+                return visitor.visitHas_params(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2121,6 +2319,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitList_params" ):
                 listener.exitList_params(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList_params" ):
+                return visitor.visitList_params(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2168,6 +2372,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMore_params" ):
                 listener.exitMore_params(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMore_params" ):
+                return visitor.visitMore_params(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2220,6 +2430,12 @@ class little_duckParser ( Parser ):
             if hasattr( listener, "exitAdd_vars" ):
                 listener.exitAdd_vars(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAdd_vars" ):
+                return visitor.visitAdd_vars(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2264,6 +2480,12 @@ class little_duckParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStart_" ):
                 listener.exitStart_(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStart_" ):
+                return visitor.visitStart_(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
