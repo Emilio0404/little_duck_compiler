@@ -6,18 +6,18 @@ semantic_cube = {
                     '*': 'int', 
                     '/': 'int', 
                     '=': 'int', 
-                    '!=': 'int', 
-                    '>': 'int', 
-                    '<': 'int'
+                    '!=': 'bool', 
+                    '>': 'bool', 
+                    '<': 'bool'
                 },
             'float': {
                     '+': 'float', 
                     '-': 'float', 
                     '*': 'float', 
                     '/': 'float', 
-                    '=': 'float', 
-                    '!=': 'float', 
-                    '>': 'float', 
+                    '=': 'bool', 
+                    '!=': 'bool', 
+                    '>': 'bool', 
                 }
         },
     'float': {
@@ -27,18 +27,18 @@ semantic_cube = {
                     '*': 'float', 
                     '/': 'float', 
                     '=': 'float', 
-                    '!=': 'float', 
-                    '>': 'float', 
-                    '<': 'float'
+                    '!=': 'bool', 
+                    '>': 'bool', 
+                    '<': 'bool'
                 },
             'float': {
                     '+': 'float', 
                     '-': 'float', 
                     '*': 'float', 
                     '/': 'float', 
-                    '=': 'float', 
-                    '!=': 'float', 
-                    '>': 'float', 
+                    '=': 'bool', 
+                    '!=': 'bool', 
+                    '>': 'bool', 
                 }
         }
 }

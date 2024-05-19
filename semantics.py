@@ -15,6 +15,10 @@ NOTES
 info from each vars table is not in DirFunc but the object itself
 """
 
+
+from semantic_cube import semantic_cube
+
+
 class DirFunc():
     def __init__(self):
         self.functions = {}
@@ -75,3 +79,11 @@ class Variable():
         self.name = name
         self.type = type
         self.value = value
+
+
+class SemanticCube():
+    def __init__(self):
+        self.cube = semantic_cube
+
+    def resolveType(self, operator1, operator2, operation):
+        pass
