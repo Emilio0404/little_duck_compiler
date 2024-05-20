@@ -159,6 +159,11 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by little_duckParser#if_condition.
+    def visitIf_condition(self, ctx:little_duckParser.If_conditionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by little_duckParser#end_condition.
     def visitEnd_condition(self, ctx:little_duckParser.End_conditionContext):
         return self.visitChildren(ctx)

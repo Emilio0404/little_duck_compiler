@@ -43,7 +43,8 @@ print_more_expressions: (',' list_prints)?;
 
 cycle: do body while open_parenthesis expression close_parenthesis';';
 
-condition: if open_parenthesis expression close_parenthesis body end_condition ';';
+condition: if if_condition body end_condition ';';
+if_condition: open_parenthesis expression close_parenthesis;
 end_condition: (ELSE body)?;
 
 f_call: ID '(' has_exp ')' ';';

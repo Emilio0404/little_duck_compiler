@@ -156,8 +156,6 @@ class little_duckListener(ParseTreeListener):
             right_operand = self.quadruples_helper.popOperand()
             left_operand = self.quadruples_helper.popOperand()
             operator = self.quadruples_helper.popOperator()
-            result = self.quadruples_helper.generateTempVariable()
-            self.quadruples_helper.pushOperand(result)
             quad = Quadruple(operator, right_operand, None, left_operand)
             self.quadruples_helper.addQuadruple(quad)
 
@@ -350,7 +348,22 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#condition.
     def exitCondition(self, ctx:little_duckParser.ConditionContext):
+        self.quadruples_helper.fillJump()
+    
+        # Enter a parse tree produced by little_duckParser#if_condition.
+    def enterIf_condition(self, ctx:little_duckParser.If_conditionContext):
         pass
+
+    # Exit a parse tree produced by little_duckParser#if_condition.
+    def exitIf_condition(self, ctx:little_duckParser.If_conditionContext):
+        # pop type
+        # if type isnt bool
+            # raise error
+
+        result = self.quadruples_helper.popOperand()
+        quad = Quadruple('GOTOF', result, ' ', None)
+        self.quadruples_helper.pushJump()
+        self.quadruples_helper.addQuadruple(quad)
 
 
     # Enter a parse tree produced by little_duckParser#end_condition.

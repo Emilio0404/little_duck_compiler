@@ -17,9 +17,11 @@ class QuadruplesGenerator():
         self.types_stack = []
         self.jumps_stack = []
         self.temp_counter = 1
+        self.quadruple_counter = 1
 
     def addQuadruple(self, quad):
         self.quadruples.append(quad)
+        self.quadruple_counter += 1
 
     def generateTempVariable(self):
         tmp_var = 't' + str(self.temp_counter)
@@ -30,7 +32,9 @@ class QuadruplesGenerator():
         self.operators_stack.append(operator)
 
     def popOperator(self):
-        return self.operators_stack.pop()
+        if len(self.operators_stack) > 0:
+            return self.operators_stack.pop()
+        return None
     
     def topOperator(self):
         if len(self.operators_stack) > 0:
@@ -41,7 +45,9 @@ class QuadruplesGenerator():
         self.operands_stack.append(operator)
 
     def popOperand(self):
-        return self.operands_stack.pop()
+        if len(self.operands_stack) > 0:
+            return self.operands_stack.pop()
+        return None
     
     def topOperand(self):
         if len(self.operands_stack) > 0:
@@ -59,8 +65,14 @@ class QuadruplesGenerator():
             return self.types_stack[-1]
         return None
     
-    def pushJump(self, operator):
-        self.jumps_stack.append(operator)
+    def pushJump(self):
+        self.jumps_stack.append(self.quadruple_counter)
+
+    def fillJump(self):
+        if len(self.jumps_stack) > 0:
+            end = self.popJump()
+            self.quadruples[end - 1].result = self.quadruple_counter
+            
 
     def popJump(self):
         return self.jumps_stack.pop()
