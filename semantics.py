@@ -1,21 +1,3 @@
-"""
-TODO: how am i gonna check global scope
-TODO: pass value to add Variable
-TODO: volver a checar 
-TODO: missing 12
-TODO: five?
-
-Later TODO
-TODO: type should be enum
-TODO: best way to pass type
-TODO: checks pertinentes
-    [ ] type checking here?
-
-NOTES
-info from each vars table is not in DirFunc but the object itself
-"""
-
-
 from semantic_cube import semantic_cube
 
 
