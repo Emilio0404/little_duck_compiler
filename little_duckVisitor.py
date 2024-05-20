@@ -114,6 +114,16 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by little_duckParser#parenthesis_factor_expression.
+    def visitParenthesis_factor_expression(self, ctx:little_duckParser.Parenthesis_factor_expressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#factor_value.
+    def visitFactor_value(self, ctx:little_duckParser.Factor_valueContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by little_duckParser#factor_operator.
     def visitFactor_operator(self, ctx:little_duckParser.Factor_operatorContext):
         return self.visitChildren(ctx)

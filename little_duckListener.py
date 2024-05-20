@@ -145,11 +145,21 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#assign.
     def enterAssign(self, ctx:little_duckParser.AssignContext):
-        pass
+        id_name = ctx.ID().getText()
+        self.quadruples_helper.pushOperand(id_name)
+        self.quadruples_helper.pushOperator('=')
 
     # Exit a parse tree produced by little_duckParser#assign.
     def exitAssign(self, ctx:little_duckParser.AssignContext):
-        pass
+        topOperator = self.quadruples_helper.topOperator()
+        if topOperator == '=':
+            right_operand = self.quadruples_helper.popOperand()
+            left_operand = self.quadruples_helper.popOperand()
+            operator = self.quadruples_helper.popOperator()
+            result = self.quadruples_helper.generateTempVariable()
+            self.quadruples_helper.pushOperand(result)
+            quad = Quadruple(operator, right_operand, None, left_operand)
+            self.quadruples_helper.addQuadruple(quad)
 
 
     # Enter a parse tree produced by little_duckParser#expression.
@@ -167,12 +177,21 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#mas_exp.
     def exitMas_exp(self, ctx:little_duckParser.Mas_expContext):
-        pass
+        topOperator = self.quadruples_helper.topOperator()
+        if topOperator == '>' or topOperator == '<' or topOperator == '!=':
+            right_operand = self.quadruples_helper.popOperand()
+            left_operand = self.quadruples_helper.popOperand()
+            operator = self.quadruples_helper.popOperator()
+            result = self.quadruples_helper.generateTempVariable()
+            self.quadruples_helper.pushOperand(result)
+            quad = Quadruple(operator, left_operand, right_operand, result)
+            self.quadruples_helper.addQuadruple(quad)
 
 
     # Enter a parse tree produced by little_duckParser#expression_operator.
     def enterExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
-        pass
+        comparision_operator = ctx.getText()
+        self.quadruples_helper.pushOperator(comparision_operator)
 
     # Exit a parse tree produced by little_duckParser#expression_operator.
     def exitExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
@@ -190,7 +209,8 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#exp_operator.
     def enterExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
-        pass
+        operator = ctx.getText()
+        self.quadruples_helper.pushOperator(operator)
 
     # Exit a parse tree produced by little_duckParser#exp_operator.
     def exitExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
@@ -203,12 +223,30 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#termino.
     def exitTermino(self, ctx:little_duckParser.TerminoContext):
-        pass
+        topOperator = self.quadruples_helper.topOperator()
+        if topOperator == '+' or topOperator == '-':
+            right_operand = self.quadruples_helper.popOperand()
+            left_operand = self.quadruples_helper.popOperand()
+            operator = self.quadruples_helper.popOperator()
+            result = self.quadruples_helper.generateTempVariable()
+            self.quadruples_helper.pushOperand(result)
+            quad = Quadruple(operator, left_operand, right_operand, result)
+            self.quadruples_helper.addQuadruple(quad)
+
+            # pop right operand and type
+            # pop left operand and type
+            # get semantic cube type
+            # if not semantic cube error
+                # generate result
+                # create quad
+                # push quad
+                # push result and its type to stacks
 
 
     # Enter a parse tree produced by little_duckParser#termino_operator.
     def enterTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
-        pass
+        operator = ctx.getText()
+        self.quadruples_helper.pushOperator(operator)
 
     # Exit a parse tree produced by little_duckParser#termino_operator.
     def exitTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
@@ -221,6 +259,32 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#factor.
     def exitFactor(self, ctx:little_duckParser.FactorContext):
+        topOperator = self.quadruples_helper.topOperator()
+        if topOperator == '*' or topOperator == '/':
+            right_operand = self.quadruples_helper.popOperand()
+            left_operand = self.quadruples_helper.popOperand()
+            operator = self.quadruples_helper.popOperator()
+            result = self.quadruples_helper.generateTempVariable()
+            self.quadruples_helper.pushOperand(result)
+            quad = Quadruple(operator, left_operand, right_operand, result)
+            self.quadruples_helper.addQuadruple(quad)
+
+
+    # Enter a parse tree produced by little_duckParser#parenthesis_factor_expression.
+    def enterParenthesis_factor_expression(self, ctx:little_duckParser.Parenthesis_factor_expressionContext):
+        self.quadruples_helper.pushOperator('(')
+
+    # Exit a parse tree produced by little_duckParser#parenthesis_factor_expression.
+    def exitParenthesis_factor_expression(self, ctx:little_duckParser.Parenthesis_factor_expressionContext):
+        self.quadruples_helper.popOperator()
+
+
+    # Enter a parse tree produced by little_duckParser#factor_value.
+    def enterFactor_value(self, ctx:little_duckParser.Factor_valueContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#factor_value.
+    def exitFactor_value(self, ctx:little_duckParser.Factor_valueContext):
         pass
 
 
@@ -239,8 +303,9 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#value.
     def exitValue(self, ctx:little_duckParser.ValueContext):
-        id_name = ctx.ID().getText()
-        self.quadruples_helper.appendOperand(id_name)
+        if ctx.ID():
+            id_name = ctx.ID().getText()
+            self.quadruples_helper.pushOperand(id_name)
 
 
     # Enter a parse tree produced by little_duckParser#print.

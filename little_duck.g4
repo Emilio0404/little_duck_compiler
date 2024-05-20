@@ -25,13 +25,15 @@ expression: exp mas_exp;
 mas_exp: (expression_operator exp)?;
 expression_operator: '>' |'<' | '!=';
 
-exp: (termino (exp_operator)?)+;
-exp_operator: ('+' | '-');
+exp: termino (exp_operator termino)*;
+exp_operator: '+' | '-';
 
-termino: (factor termino_operator?)+;
-termino_operator: ('*' | '/');
+termino: factor (termino_operator factor)*;
+termino_operator: '*' | '/';
 
-factor: '(' expression ')' | (factor_operator? value);
+factor: parenthesis_factor_expression | factor_value;
+parenthesis_factor_expression: '(' expression ')';
+factor_value: (factor_operator? value);
 factor_operator: ('+' | '-');
 value: ID | cte;
 

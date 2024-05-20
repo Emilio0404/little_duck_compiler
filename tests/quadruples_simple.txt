@@ -2,6 +2,6 @@ program quadruples;
             var A, B, C, D, F, G, H, I, J: int;
             
             main {
-                Z = A * (B + C * D / F + G * (H - I) +J);
-                X = A * B / (C + D * F / G + H) - I > (A + B) * C - D;
+                Z = A * (B + C * D / F + G * (H - I) + J);
+                Y = A * B / (C + D * F / G + H) - I > (A + B) * C - D;
             } end
