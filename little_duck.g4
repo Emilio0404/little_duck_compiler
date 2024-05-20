@@ -22,13 +22,14 @@ statement: assign | condition | cycle | f_call | print | expression;
 assign: ID equal_sign expression ';';
 
 expression: exp mas_exp;
-mas_exp: (EXPRESSION_OPERATOR exp)?;
-EXPRESSION_OPERATOR: '>' |'<' | '!=';
+mas_exp: (expression_operator exp)?;
+expression_operator: '>' |'<' | '!=';
 
 exp: (termino (exp_operator)?)+;
 exp_operator: ('+' | '-');
 
-termino: (factor ('*' | '/')?)+;
+termino: (factor termino_operator?)+;
+termino_operator: ('*' | '/');
 
 factor: '(' expression ')' | (factor_operator? value);
 factor_operator: ('+' | '-');

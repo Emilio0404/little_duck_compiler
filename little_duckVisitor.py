@@ -84,6 +84,11 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by little_duckParser#expression_operator.
+    def visitExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by little_duckParser#exp.
     def visitExp(self, ctx:little_duckParser.ExpContext):
         return self.visitChildren(ctx)
@@ -96,6 +101,11 @@ class little_duckVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by little_duckParser#termino.
     def visitTermino(self, ctx:little_duckParser.TerminoContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#termino_operator.
+    def visitTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
         return self.visitChildren(ctx)
 
 

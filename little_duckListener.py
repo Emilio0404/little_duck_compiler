@@ -1,6 +1,7 @@
 from antlr4 import *
 from little_duckParser import little_duckParser
 from semantics import DirFunc
+from quadruples import QuadruplesGenerator, Quadruple
 
 # This class defines a complete listener for a parse tree produced by little_duckParser.
 class little_duckListener(ParseTreeListener):
@@ -10,6 +11,7 @@ class little_duckListener(ParseTreeListener):
         #self.current_vartable = None
         self.dir_func = None
         self.variables_to_add = []
+        self.quadruples_helper = QuadruplesGenerator()
 
     # Enter a parse tree produced by little_duckParser#programa.
     def enterPrograma(self, ctx:little_duckParser.ProgramaContext):
@@ -24,7 +26,8 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#programa.
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
-        self.dir_func.printFunctions()
+        #self.dir_func.printFunctions()
+        self.quadruples_helper.printQuadruples()
 
         # 6. Delete DirFunc and current VarTable
         del self.dir_func
@@ -167,6 +170,15 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by little_duckParser#expression_operator.
+    def enterExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#expression_operator.
+    def exitExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
+        pass
+
+
     # Enter a parse tree produced by little_duckParser#exp.
     def enterExp(self, ctx:little_duckParser.ExpContext):
         pass
@@ -194,6 +206,15 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by little_duckParser#termino_operator.
+    def enterTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#termino_operator.
+    def exitTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
+        pass
+
+
     # Enter a parse tree produced by little_duckParser#factor.
     def enterFactor(self, ctx:little_duckParser.FactorContext):
         pass
@@ -218,7 +239,8 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#value.
     def exitValue(self, ctx:little_duckParser.ValueContext):
-        pass
+        id_name = ctx.ID().getText()
+        self.quadruples_helper.appendOperand(id_name)
 
 
     # Enter a parse tree produced by little_duckParser#print.
