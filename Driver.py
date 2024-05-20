@@ -3,6 +3,7 @@ from antlr4 import *
 from little_duckLexer import little_duckLexer
 from little_duckParser import little_duckParser
 from little_duckListener import little_duckListener
+from little_duckVisitor import little_duckVisitor
 
 def main(argv):
     input_stream = FileStream(argv[1])
@@ -14,6 +15,9 @@ def main(argv):
     listener = little_duckListener()
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
+
+    visitor = little_duckVisitor()
+    visitor.visit(tree)
 
 
 if __name__ == '__main__':

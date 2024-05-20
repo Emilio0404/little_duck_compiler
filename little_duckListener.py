@@ -1,6 +1,6 @@
 from antlr4 import *
 from little_duckParser import little_duckParser
-from semantics import DirFunc, VarsTable, Variable
+from semantics import DirFunc
 
 # This class defines a complete listener for a parse tree produced by little_duckParser.
 class little_duckListener(ParseTreeListener):
@@ -167,21 +167,21 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by little_duckParser#list_exp.
-    def enterList_exp(self, ctx:little_duckParser.List_expContext):
-        pass
-
-    # Exit a parse tree produced by little_duckParser#list_exp.
-    def exitList_exp(self, ctx:little_duckParser.List_expContext):
-        pass
-
-
     # Enter a parse tree produced by little_duckParser#exp.
     def enterExp(self, ctx:little_duckParser.ExpContext):
         pass
 
     # Exit a parse tree produced by little_duckParser#exp.
     def exitExp(self, ctx:little_duckParser.ExpContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#exp_operator.
+    def enterExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#exp_operator.
+    def exitExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
         pass
 
 
@@ -203,12 +203,12 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by little_duckParser#factor_op.
-    def enterFactor_op(self, ctx:little_duckParser.Factor_opContext):
+    # Enter a parse tree produced by little_duckParser#factor_operator.
+    def enterFactor_operator(self, ctx:little_duckParser.Factor_operatorContext):
         pass
 
-    # Exit a parse tree produced by little_duckParser#factor_op.
-    def exitFactor_op(self, ctx:little_duckParser.Factor_opContext):
+    # Exit a parse tree produced by little_duckParser#factor_operator.
+    def exitFactor_operator(self, ctx:little_duckParser.Factor_operatorContext):
         pass
 
 
@@ -369,6 +369,69 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#start_.
     def exitStart_(self, ctx:little_duckParser.Start_Context):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#equal_sign.
+    def enterEqual_sign(self, ctx:little_duckParser.Equal_signContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#equal_sign.
+    def exitEqual_sign(self, ctx:little_duckParser.Equal_signContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#main.
+    def enterMain(self, ctx:little_duckParser.MainContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#main.
+    def exitMain(self, ctx:little_duckParser.MainContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#if.
+    def enterIf(self, ctx:little_duckParser.IfContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#if.
+    def exitIf(self, ctx:little_duckParser.IfContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#while.
+    def enterWhile(self, ctx:little_duckParser.WhileContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#while.
+    def exitWhile(self, ctx:little_duckParser.WhileContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#do.
+    def enterDo(self, ctx:little_duckParser.DoContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#do.
+    def exitDo(self, ctx:little_duckParser.DoContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#close_parenthesis.
+    def enterClose_parenthesis(self, ctx:little_duckParser.Close_parenthesisContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#close_parenthesis.
+    def exitClose_parenthesis(self, ctx:little_duckParser.Close_parenthesisContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#open_parenthesis.
+    def enterOpen_parenthesis(self, ctx:little_duckParser.Open_parenthesisContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#open_parenthesis.
+    def exitOpen_parenthesis(self, ctx:little_duckParser.Open_parenthesisContext):
         pass
 
 

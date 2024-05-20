@@ -84,13 +84,13 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by little_duckParser#list_exp.
-    def visitList_exp(self, ctx:little_duckParser.List_expContext):
+    # Visit a parse tree produced by little_duckParser#exp.
+    def visitExp(self, ctx:little_duckParser.ExpContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by little_duckParser#exp.
-    def visitExp(self, ctx:little_duckParser.ExpContext):
+    # Visit a parse tree produced by little_duckParser#exp_operator.
+    def visitExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
         return self.visitChildren(ctx)
 
 
@@ -104,8 +104,8 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by little_duckParser#factor_op.
-    def visitFactor_op(self, ctx:little_duckParser.Factor_opContext):
+    # Visit a parse tree produced by little_duckParser#factor_operator.
+    def visitFactor_operator(self, ctx:little_duckParser.Factor_operatorContext):
         return self.visitChildren(ctx)
 
 
@@ -191,6 +191,41 @@ class little_duckVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by little_duckParser#start_.
     def visitStart_(self, ctx:little_duckParser.Start_Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#equal_sign.
+    def visitEqual_sign(self, ctx:little_duckParser.Equal_signContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#main.
+    def visitMain(self, ctx:little_duckParser.MainContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#if.
+    def visitIf(self, ctx:little_duckParser.IfContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#while.
+    def visitWhile(self, ctx:little_duckParser.WhileContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#do.
+    def visitDo(self, ctx:little_duckParser.DoContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#close_parenthesis.
+    def visitClose_parenthesis(self, ctx:little_duckParser.Close_parenthesisContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#open_parenthesis.
+    def visitOpen_parenthesis(self, ctx:little_duckParser.Open_parenthesisContext):
         return self.visitChildren(ctx)
 
 

@@ -1,6 +1,6 @@
 grammar little_duck;
 
-programa: 'program' ID ';' vars funcs* 'main' body 'end';
+programa: 'program' ID ';' vars funcs* main body 'end';
 
 type: 'int' | 'float';
 
@@ -19,28 +19,29 @@ more_statements: (statement more_statements)?;
 
 statement: assign | condition | cycle | f_call | print | expression;
 
-assign: ID '=' expression ';';
+assign: ID equal_sign expression ';';
 
 expression: exp mas_exp;
-mas_exp: (list_exp exp)?;
-list_exp: '>' |'<' | '!=';
+mas_exp: (EXPRESSION_OPERATOR exp)?;
+EXPRESSION_OPERATOR: '>' |'<' | '!=';
 
-exp: (termino ('+' | '-'?))+;
+exp: (termino (exp_operator)?)+;
+exp_operator: ('+' | '-');
 
 termino: (factor ('*' | '/')?)+;
 
-factor: '(' expression ')' | (factor_op value);
-factor_op: ('+' | '-')?;
+factor: '(' expression ')' | (factor_operator? value);
+factor_operator: ('+' | '-');
 value: ID | cte;
 
 print: 'print(' list_prints ')' ';';
 list_prints: (expression print_more_expressions) | CTE_STRING print_more_expressions;
 print_more_expressions: (',' list_prints)?;
 
-cycle: 'do' body 'while' '(' expression ')' ';';
+cycle: do body while open_parenthesis expression close_parenthesis';';
 
-condition: 'if' '(' expression ')' body end_condition ';';
-end_condition: ('else' body)?;
+condition: if open_parenthesis expression close_parenthesis body end_condition ';';
+end_condition: (ELSE body)?;
 
 f_call: ID '(' has_exp ')' ';';
 has_exp: (list_call_exp)?;
@@ -54,6 +55,15 @@ more_params: (',' list_params)?;
 add_vars: vars;
 
 start_ : programa EOF;
+
+equal_sign: '=';
+main: 'main';
+if: 'if';
+ELSE: 'else';
+while: 'while';
+do: 'do';
+close_parenthesis: ')';
+open_parenthesis: '(';
 
 CTE_INT: [0-9]+;
 CTE_FLOAT: [+-]? [0-9]* '.' [0-9]+;
