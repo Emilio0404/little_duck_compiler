@@ -348,7 +348,8 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#condition.
     def exitCondition(self, ctx:little_duckParser.ConditionContext):
-        self.quadruples_helper.fillJump()
+        end = self.quadruples_helper.popJump()
+        self.quadruples_helper.fillJump(end)
     
         # Enter a parse tree produced by little_duckParser#if_condition.
     def enterIf_condition(self, ctx:little_duckParser.If_conditionContext):
@@ -368,7 +369,12 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#end_condition.
     def enterEnd_condition(self, ctx:little_duckParser.End_conditionContext):
-        pass
+        quad = Quadruple('GOTO', ' ', ' ', None)
+        false = self.quadruples_helper.popJump()
+        self.quadruples_helper.pushJump()
+        self.quadruples_helper.addQuadruple(quad)
+        self.quadruples_helper.fillJump(false)
+        
 
     # Exit a parse tree produced by little_duckParser#end_condition.
     def exitEnd_condition(self, ctx:little_duckParser.End_conditionContext):

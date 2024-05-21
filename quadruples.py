@@ -68,14 +68,12 @@ class QuadruplesGenerator():
     def pushJump(self):
         self.jumps_stack.append(self.quadruple_counter)
 
-    def fillJump(self):
-        if len(self.jumps_stack) > 0:
-            end = self.popJump()
-            self.quadruples[end - 1].result = self.quadruple_counter
+    def fillJump(self, quad_index):
+        self.quadruples[quad_index - 1].result = self.quadruple_counter
             
-
     def popJump(self):
-        return self.jumps_stack.pop()
+        if len(self.jumps_stack) > 0:
+            return self.jumps_stack.pop()
     
     def topJump(self):
         if len(self.jumps_stack) > 0:

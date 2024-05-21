@@ -1,11 +1,11 @@
 program quadruples;
-            var A, B, C, D, F, G, H, I, J: int;
-            
-            main {
-                if (A + B > D * C) {
-                    F = J;
-                    Z = (B + C * D / F - J);
-                };
+    var A, B, C, D, F, G, H, I, J: int;
+    
+    main {
+        if (A + B > D * C) {
+            F = J;
+            Z = (B + C * D / F - J);
+        };
 
-                B = A + C;
-            } end
+        B = A + C;
+    } end
