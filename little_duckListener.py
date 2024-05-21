@@ -315,7 +315,14 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#print.
     def exitPrint(self, ctx:little_duckParser.PrintContext):
-        pass
+        result = None
+        if ctx.list_prints().CTE_STRING():
+            result = ctx.list_prints().CTE_STRING().getText()
+        else:
+            result = self.quadruples_helper.popOperand()
+
+        quad = Quadruple('print', ' ', ' ', result)
+        self.quadruples_helper.addQuadruple(quad)
 
 
     # Enter a parse tree produced by little_duckParser#list_prints.

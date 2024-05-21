@@ -9,4 +9,4 @@ program quadruples_cycle;
         } while (A > B);
 
         B = A;
-    } end;
+    } end

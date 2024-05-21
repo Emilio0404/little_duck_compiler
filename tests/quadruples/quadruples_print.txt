@@ -1,0 +1,10 @@
+program quads_print;
+    var A, B, C, D: int;
+    
+    main {
+        A = 0;
+        B = 2;
+
+        print("HI");
+        print(A + B * (B * B));
+    } end
