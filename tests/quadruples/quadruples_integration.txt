@@ -1,0 +1,19 @@
+program quadruples;
+    var A, B, C, D: int;
+    
+    main {
+        if (A + B > D) {
+            if (A < B) {
+                A = D;
+                B = B + D;
+            } else { 
+                C = A + B;
+            };
+        } else {
+            do {
+                B = A;
+            } while (A > B);
+        };
+
+        D = B + A * C;
+    } end

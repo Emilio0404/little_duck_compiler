@@ -1,0 +1,12 @@
+program quadruples_cycle;
+    var A, B: int;
+
+    main {
+        A = B;
+
+        do {
+            B = A;
+        } while (A > B);
+
+        B = A;
+    } end;
