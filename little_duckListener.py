@@ -304,6 +304,9 @@ class little_duckListener(ParseTreeListener):
         if ctx.ID():
             id_name = ctx.ID().getText()
             self.quadruples_helper.pushOperand(id_name)
+        elif ctx.cte():
+            constant_value = ctx.getText()
+            self.quadruples_helper.pushOperand(constant_value)
 
 
     # Enter a parse tree produced by little_duckParser#print.

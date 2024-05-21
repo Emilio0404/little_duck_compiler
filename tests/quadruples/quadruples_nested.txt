@@ -4,7 +4,7 @@ program quadruples;
     main {
         if (A + B > D) {
             if (A < B) {
-                A = D;
+                A = 0;
                 B = B + D;
             } else { 
                 C = A + B;
