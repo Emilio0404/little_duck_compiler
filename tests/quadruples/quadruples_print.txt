@@ -6,5 +6,6 @@ program quads_print;
         B = 2;
 
         print("HI");
+        print(A, B, C, "hola", 1);
         print(A + B * (B * B));
     } end

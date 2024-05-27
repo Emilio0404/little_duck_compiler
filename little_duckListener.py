@@ -2,6 +2,7 @@ from antlr4 import *
 from little_duckParser import little_duckParser
 from semantics import DirFunc, SemanticCube
 from quadruples import QuadruplesGenerator, Quadruple
+from memory import MemoryManager
 
 # This class defines a complete listener for a parse tree produced by little_duckParser.
 class little_duckListener(ParseTreeListener):
@@ -12,6 +13,7 @@ class little_duckListener(ParseTreeListener):
         self.variables_to_add = []
         self.quadruples_helper = QuadruplesGenerator()
         self.semantic_cube = SemanticCube()
+        self.memoryManager = MemoryManager()
 
     # Enter a parse tree produced by little_duckParser#programa.
     def enterPrograma(self, ctx:little_duckParser.ProgramaContext):
@@ -332,14 +334,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#print.
     def exitPrint(self, ctx:little_duckParser.PrintContext):
-        result = None
-        if ctx.list_prints().CTE_STRING():
-            result = ctx.list_prints().CTE_STRING().getText()
-        else:
-            result = self.quadruples_helper.popOperand()
-
-        quad = Quadruple('print', ' ', ' ', result)
-        self.quadruples_helper.addQuadruple(quad)
+        pass
 
 
     # Enter a parse tree produced by little_duckParser#list_prints.
@@ -353,7 +348,19 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#print_more_expressions.
     def enterPrint_more_expressions(self, ctx:little_duckParser.Print_more_expressionsContext):
-        pass
+        result = None
+
+        if ctx.parentCtx.expression():
+            result = self.quadruples_helper.popOperand()
+        elif ctx.parentCtx.CTE_STRING():
+            result = ctx.parentCtx.CTE_STRING().getText()
+        else:
+            print("ERROR")
+
+        quad = Quadruple('print', ' ', ' ', result)
+        self.quadruples_helper.addQuadruple(quad)
+
+        
 
     # Exit a parse tree produced by little_duckParser#print_more_expressions.
     def exitPrint_more_expressions(self, ctx:little_duckParser.Print_more_expressionsContext):
@@ -574,6 +581,10 @@ class little_duckListener(ParseTreeListener):
     # Exit a parse tree produced by little_duckParser#open_parenthesis.
     def exitOpen_parenthesis(self, ctx:little_duckParser.Open_parenthesisContext):
         pass
+
+
+    def returnMemory(self):
+        return self.memoryManager
 
 
 
