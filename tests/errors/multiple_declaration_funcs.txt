@@ -1,0 +1,14 @@
+program quadruples;
+    
+    void nombre_repetido (x : float, y : float)[
+        { }
+        ];
+            
+    void nombre_repetido (x : float, y : float)[
+        { }
+    ];
+
+    main {
+
+    } end
+

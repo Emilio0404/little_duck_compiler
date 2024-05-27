@@ -1,0 +1,7 @@
+program quadruples;
+    var hello: int;
+        hello: int;
+
+    main {
+        
+    } end

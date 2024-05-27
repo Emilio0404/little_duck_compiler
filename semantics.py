@@ -1,5 +1,5 @@
 from semantic_cube import semantic_cube
-
+import sys
 
 class DirFunc():
     def __init__(self):
@@ -9,13 +9,19 @@ class DirFunc():
         if function_name not in self.functions:
             self.functions[function_name] = VarsTable(function_name, function_type)
         else:
-            raise Exception('MULTIPLE DECLARATION ERROR: FUNCTION NAME ALREADY IN USE')
+            print('MULTIPLE DECLARATION ERROR: FUNCTION NAME', function_name, 'ALREADY IN USE')
+            sys.exit(1)
         
     def addVariable(self, function_name, var_name, var_type):
         if function_name in self.functions:
             self.functions[function_name].addVariable(var_name, var_type)
         else:
-            raise Exception('ERROR MISSING SYMBOL:', function_name, 'FUNCTION NAME NOT FOUND')
+            print('MULTIPLE DECLARATION ERROR: NAME ALREADY IN USE')
+            sys.exit(1)
+
+    def getVariable(self, function_name, variable_name):
+        var_table = self.functions[function_name]
+        return var_table.getVariable(variable_name)
 
     def printFunctions(self):
         print("DirFunc")
@@ -46,7 +52,11 @@ class VarsTable():
             value = "NaN"
             self.variables[name] = Variable(name, type, value)
         else:
-            raise Exception('MULTIPLE DECLARATION ERROR: VARIABLE NAME ALREADY IN USE')
+            print('MULTIPLE DECLARATION ERROR: VARIABLE NAME', name, 'ALREADY IN USE')
+            sys.exit(1)
+
+    def getVariable(self, var):
+        return self.variables[var]
 
     def deleteVariable(self):
         pass
@@ -67,5 +77,9 @@ class SemanticCube():
     def __init__(self):
         self.cube = semantic_cube
 
-    def resolveType(self, operator1, operator2, operation):
-        pass
+    def resolveType(self, left_type, right_type, operator):
+        if self.cube[left_type][right_type][operator]:
+            return self.cube[left_type][right_type][operator]
+
+        print("ERROR: SEMANTIC CUBE")
+        sys.exit(1)
