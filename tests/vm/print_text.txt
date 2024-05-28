@@ -1,6 +1,6 @@
 program print_text;
     main {
-        print("holis");
-        print("hello", "world");
-        print(1, 2, 3);
+        print("holis", "wow", "rolololo");
+        print("amazing", "wow");
+        print(1);
     } end

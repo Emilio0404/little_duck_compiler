@@ -73,3 +73,7 @@ class VirtualMachine():
             condition = self.memory.getValue(left)
             if condition is True:
                 self.ip = result - 2;
+
+        elif operation == 12:
+            value_to_print = self.memory.getValue(result)
+            print(str(value_to_print), end=' ')

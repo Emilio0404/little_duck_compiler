@@ -16,6 +16,8 @@ class little_duckListener(ParseTreeListener):
         self.semantic_cube = SemanticCube()
         self.constTable = ConstTable()
         self.memoryManager = MemoryManager()
+        self.isMultiPrint = False
+        self.printOperator = 'printn'
 
     # Enter a parse tree produced by little_duckParser#programa.
     def enterPrograma(self, ctx:little_duckParser.ProgramaContext):
@@ -377,6 +379,13 @@ class little_duckListener(ParseTreeListener):
     def enterPrint_more_expressions(self, ctx:little_duckParser.Print_more_expressionsContext):
         result = None
 
+        if ctx.list_prints():
+            self.isMultiPrint = True
+            self.printOperator = 'print'
+        else:
+            self.isMultiPrint = False
+            self.printOperator = 'printn'
+
         if ctx.parentCtx.expression():
             result = self.quadruples_helper.popOperand()
         elif ctx.parentCtx.CTE_STRING():
@@ -392,7 +401,7 @@ class little_duckListener(ParseTreeListener):
         else:
             print("ERROR")
 
-        quad = Quadruple(operation_codes['print'], -1, -1, result)
+        quad = Quadruple(operation_codes[self.printOperator], -1, -1, result)
         self.quadruples_helper.addQuadruple(quad)
 
 

@@ -7,8 +7,9 @@ operation_codes = {
     "!=" : 5,
     ">" : 6,
     "<" : 7,
-    "print" : 8,
+    "printn" : 8,
     "GOTO" : 9,
     "GOTOF" : 10,
-    "GOTOV" : 11
+    "GOTOV" : 11,
+    "print" : 12
 }
