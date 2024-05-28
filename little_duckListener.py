@@ -32,7 +32,7 @@ class little_duckListener(ParseTreeListener):
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
         #self.dir_func.printFunctions()
         #self.constTable.printConstants()
-        self.quadruples_helper.printQuadruples()
+        #self.quadruples_helper.printQuadruples()
 
         # 6. Delete DirFunc and current VarTable
         del self.dir_func
@@ -70,12 +70,14 @@ class little_duckListener(ParseTreeListener):
                 address = self.memoryManager.allocate('cte')
                 const = self.constTable.getConstant(ctx.CTE_INT().getText())
                 const.updateMemoryAddress(address)
+                self.memoryManager.updateValue(int(ctx.CTE_INT().getText()), const.address)
         elif ctx.CTE_FLOAT():
             address = self.constTable.addConstant(ctx.CTE_FLOAT().getText(), 'float')
             if address is None:
                 address = self.memoryManager.allocate('cte')
                 const = self.constTable.getConstant(ctx.CTE_FLOAT().getText())
                 const.updateMemoryAddress(address)
+                self.memoryManager.updateValue(float(ctx.CTE_FLOAT().getText()), const.address)
         else:
             print("ERROR ADDING TO CONST TABLE")
 
@@ -207,7 +209,7 @@ class little_duckListener(ParseTreeListener):
 
             # result = self.quadruples_helper.generateTempVariable()
             result_type = self.semantic_cube.resolveType(left_type, right_type, operator)
-            result_address = self.memoryManager.allocate('tmp')
+            result_address = self.memoryManager.allocate('bool')
 
             self.quadruples_helper.pushOperand(result_address)
             self.quadruples_helper.pushType(result_type)
@@ -377,7 +379,6 @@ class little_duckListener(ParseTreeListener):
 
         if ctx.parentCtx.expression():
             result = self.quadruples_helper.popOperand()
-            print(result)
         elif ctx.parentCtx.CTE_STRING():
             result = ctx.parentCtx.CTE_STRING().getText()
         else:
@@ -386,7 +387,6 @@ class little_duckListener(ParseTreeListener):
         quad = Quadruple(operation_codes['print'], -1, -1, result)
         self.quadruples_helper.addQuadruple(quad)
 
-        
 
     # Exit a parse tree produced by little_duckParser#print_more_expressions.
     def exitPrint_more_expressions(self, ctx:little_duckParser.Print_more_expressionsContext):
@@ -609,8 +609,11 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
-    def returnMemory(self):
+    def returnMemoryManager(self):
         return self.memoryManager
+    
+    def returnQuadruples(self):
+        return self.quadruples_helper.quadruples
 
 
 

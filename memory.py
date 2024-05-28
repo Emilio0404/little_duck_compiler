@@ -5,7 +5,7 @@ class MemoryManager():
         self.int_block = MemoryBlock(1000, 1999)
         self.float_block = MemoryBlock(2000, 2999)
         self.bool_block = MemoryBlock(3000, 3999)
-        self.tmp_block = MemoryBlock(4000, 5000)
+        self.tmp_block = MemoryBlock(4000, 4999)
         self.blocks = {
             'cte' : self.cte_block,
             'int' : self.int_block, 
@@ -20,8 +20,18 @@ class MemoryManager():
         self.memory[address] = None
         return address
     
+    def getValue(self, address):
+        return self.memory[address]
+    
     def updateValue(self, value, toAddress):
         self.memory[toAddress] = value
+
+
+    def printMemory(self):
+        print(len(self.memory))
+        for i in range(0, len(self.memory)):
+            if self.memory[i] is not None:
+                print('add:', i, 'value:', self.memory[i])
     
 
 class MemoryBlock():
