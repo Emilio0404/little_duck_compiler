@@ -1,0 +1,18 @@
+program fibonacci;
+    var a, b, next, sum: int;
+
+    main {
+        a = 0;
+        b = 1;
+        sum = 0;
+
+        do {
+            print(a);
+            sum = sum + a;
+            next = a + b;
+            a = b;
+            b = next;
+        } while (a < 101);
+
+        print("FINAL SUM:", sum);
+    } end
