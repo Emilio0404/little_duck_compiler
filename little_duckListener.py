@@ -380,7 +380,15 @@ class little_duckListener(ParseTreeListener):
         if ctx.parentCtx.expression():
             result = self.quadruples_helper.popOperand()
         elif ctx.parentCtx.CTE_STRING():
-            result = ctx.parentCtx.CTE_STRING().getText()
+            incoming_string = ctx.parentCtx.CTE_STRING().getText()
+            incoming_string = incoming_string.strip('"')
+            address = self.constTable.addConstant(incoming_string, 'string')
+            if address is None:
+                 address = self.memoryManager.allocate('cte')
+                 const = self.constTable.getConstant(incoming_string)
+                 const.updateMemoryAddress(address)
+                 self.memoryManager.updateValue(incoming_string, const.address)
+            result = address
         else:
             print("ERROR")
 

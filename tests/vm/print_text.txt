@@ -1,0 +1,6 @@
+program print_text;
+    main {
+        print("holis");
+        print("hello", "world");
+        print(1, 2, 3);
+    } end
