@@ -16,8 +16,7 @@ def main(argv):
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
-    visitor = little_duckVisitor()
-    visitor.visit(tree)
+    memory = listener.returnMemory()
 
 
 if __name__ == '__main__':

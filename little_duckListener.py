@@ -3,6 +3,7 @@ from little_duckParser import little_duckParser
 from semantics import DirFunc, SemanticCube, ConstTable
 from quadruples import QuadruplesGenerator, Quadruple
 from memory import MemoryManager
+from codes import operation_codes
 
 # This class defines a complete listener for a parse tree produced by little_duckParser.
 class little_duckListener(ParseTreeListener):
@@ -29,8 +30,8 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#programa.
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
-        self.dir_func.printFunctions()
-        self.constTable.printConstants()
+        #self.dir_func.printFunctions()
+        #self.constTable.printConstants()
         self.quadruples_helper.printQuadruples()
 
         # 6. Delete DirFunc and current VarTable
@@ -165,7 +166,9 @@ class little_duckListener(ParseTreeListener):
     # Enter a parse tree produced by little_duckParser#assign.
     def enterAssign(self, ctx:little_duckParser.AssignContext):
         id_name = ctx.ID().getText()
-        self.quadruples_helper.pushOperand(id_name)
+        var = self.dir_func.getVariable(self.current_function, id_name)
+
+        self.quadruples_helper.pushOperand(var.address)
         self.quadruples_helper.pushOperator('=')
 
     # Exit a parse tree produced by little_duckParser#assign.
@@ -175,7 +178,7 @@ class little_duckListener(ParseTreeListener):
             right_operand = self.quadruples_helper.popOperand()
             left_operand = self.quadruples_helper.popOperand()
             operator = self.quadruples_helper.popOperator()
-            quad = Quadruple(operator, right_operand, ' ', left_operand)
+            quad = Quadruple(operation_codes[operator], right_operand, -1, left_operand)
             self.quadruples_helper.addQuadruple(quad)
 
 
@@ -202,12 +205,13 @@ class little_duckListener(ParseTreeListener):
             left_type = self.quadruples_helper.popType()
             operator = self.quadruples_helper.popOperator()
 
-            result = self.quadruples_helper.generateTempVariable()
+            # result = self.quadruples_helper.generateTempVariable()
             result_type = self.semantic_cube.resolveType(left_type, right_type, operator)
+            result_address = self.memoryManager.allocate('tmp')
 
-            self.quadruples_helper.pushOperand(result)
+            self.quadruples_helper.pushOperand(result_address)
             self.quadruples_helper.pushType(result_type)
-            quad = Quadruple(operator, left_operand, right_operand, result)
+            quad = Quadruple(operation_codes[operator], left_operand, right_operand, result_address)
             self.quadruples_helper.addQuadruple(quad)
 
 
@@ -254,12 +258,13 @@ class little_duckListener(ParseTreeListener):
             left_type = self.quadruples_helper.popType()
             operator = self.quadruples_helper.popOperator()
 
-            result = self.quadruples_helper.generateTempVariable()
+            # result = self.quadruples_helper.generateTempVariable()
             result_type = self.semantic_cube.resolveType(left_type, right_type, operator)
+            result_address = self.memoryManager.allocate('tmp')
 
-            self.quadruples_helper.pushOperand(result)
+            self.quadruples_helper.pushOperand(result_address)
             self.quadruples_helper.pushType(result_type)
-            quad = Quadruple(operator, left_operand, right_operand, result)
+            quad = Quadruple(operation_codes[operator], left_operand, right_operand, result_address)
             self.quadruples_helper.addQuadruple(quad)
 
 
@@ -287,12 +292,13 @@ class little_duckListener(ParseTreeListener):
             left_type = self.quadruples_helper.popType()
             operator = self.quadruples_helper.popOperator()
 
-            result = self.quadruples_helper.generateTempVariable()
+            # result = self.quadruples_helper.generateTempVariable()
             result_type = self.semantic_cube.resolveType(left_type, right_type, operator)
+            result_address = self.memoryManager.allocate('tmp')
             
-            self.quadruples_helper.pushOperand(result)
+            self.quadruples_helper.pushOperand(result_address)
             self.quadruples_helper.pushType(result_type)
-            quad = Quadruple(operator, left_operand, right_operand, result)
+            quad = Quadruple(operation_codes[operator], left_operand, right_operand, result_address)
             self.quadruples_helper.addQuadruple(quad)
 
 
@@ -333,7 +339,7 @@ class little_duckListener(ParseTreeListener):
         if ctx.ID():
             id_name = ctx.ID().getText()
             variable = self.dir_func.getVariable(self.current_function, id_name)
-            self.quadruples_helper.pushOperand(variable.name)
+            self.quadruples_helper.pushOperand(variable.address)
             self.quadruples_helper.pushType(variable.type)
         elif ctx.cte():
             cte_type = None
@@ -342,7 +348,8 @@ class little_duckListener(ParseTreeListener):
             elif ctx.cte().CTE_FLOAT():
                 cte_type = 'float'
             constant_value = ctx.getText()
-            self.quadruples_helper.pushOperand(constant_value)
+            const = self.constTable.getConstant(constant_value)
+            self.quadruples_helper.pushOperand(const.address)
             self.quadruples_helper.pushType(cte_type)
 
 
@@ -370,12 +377,13 @@ class little_duckListener(ParseTreeListener):
 
         if ctx.parentCtx.expression():
             result = self.quadruples_helper.popOperand()
+            print(result)
         elif ctx.parentCtx.CTE_STRING():
             result = ctx.parentCtx.CTE_STRING().getText()
         else:
             print("ERROR")
 
-        quad = Quadruple('print', ' ', ' ', result)
+        quad = Quadruple(operation_codes['print'], -1, -1, result)
         self.quadruples_helper.addQuadruple(quad)
 
         
@@ -396,7 +404,7 @@ class little_duckListener(ParseTreeListener):
 
         condition_type = self.quadruples_helper.popType()
         if condition_type == 'bool':
-            quad = Quadruple('GOTOV', condition_result, ' ', return_to_do)
+            quad = Quadruple(operation_codes['GOTOV'], condition_result, -1, return_to_do)
             self.quadruples_helper.addQuadruple(quad)
         else:
             print("ERROR: TYPE MISMATCH") # TODO: HANDLE IN SEMANTICS
@@ -420,7 +428,7 @@ class little_duckListener(ParseTreeListener):
         condition_type = self.quadruples_helper.popType()
         if condition_type == 'bool':
             result = self.quadruples_helper.popOperand()
-            quad = Quadruple('GOTOF', result, ' ', None)
+            quad = Quadruple(operation_codes['GOTOF'], result, -1, None)
             self.quadruples_helper.pushJump()
             self.quadruples_helper.addQuadruple(quad)
         else:
@@ -429,7 +437,7 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#end_condition.
     def enterEnd_condition(self, ctx:little_duckParser.End_conditionContext):
-        quad = Quadruple('GOTO', ' ', ' ', None)
+        quad = Quadruple(operation_codes['GOTO'], -1, -1, None)
         false = self.quadruples_helper.popJump()
         self.quadruples_helper.pushJump()
         self.quadruples_helper.addQuadruple(quad)
