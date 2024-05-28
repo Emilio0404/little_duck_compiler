@@ -1,0 +1,9 @@
+program substract;
+    var A, B, C: int;
+    
+    main {
+        A = 3;
+        B = 2;
+        C = A - B;
+        print(C);
+    } end

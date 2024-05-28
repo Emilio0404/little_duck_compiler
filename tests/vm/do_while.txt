@@ -1,0 +1,12 @@
+program do_while;
+    var A, B: int;
+
+    main {
+        A = 89;
+        B = 100;
+
+        do {
+            A = A + 1;
+            print(A);
+        } while (A < B);
+    } end

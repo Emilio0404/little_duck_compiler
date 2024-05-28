@@ -1,0 +1,9 @@
+program division;
+    var A, B, C: int;
+    
+    main {
+        A = 9;
+        B = 3;
+        C = A / B;
+        print(C);
+    } end

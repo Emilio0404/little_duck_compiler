@@ -1,0 +1,24 @@
+program comparisons;
+    var A, B, C: int;
+    
+    main {
+        A = 9;
+        B = 3;
+        if (A > B) {
+            print(1);
+        } 
+
+        A = 1;
+        if (A < B) {
+            print(2);
+        };
+
+        if (A != B) {
+            print(3);
+        };
+
+        A = 3;
+        if (A != B) {
+            print(4);
+        };
+    } end
