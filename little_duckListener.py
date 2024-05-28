@@ -1,6 +1,6 @@
 from antlr4 import *
 from little_duckParser import little_duckParser
-from semantics import DirFunc, SemanticCube
+from semantics import DirFunc, SemanticCube, ConstTable
 from quadruples import QuadruplesGenerator, Quadruple
 from memory import MemoryManager
 
@@ -13,6 +13,7 @@ class little_duckListener(ParseTreeListener):
         self.variables_to_add = []
         self.quadruples_helper = QuadruplesGenerator()
         self.semantic_cube = SemanticCube()
+        self.constTable = ConstTable()
         self.memoryManager = MemoryManager()
 
     # Enter a parse tree produced by little_duckParser#programa.
@@ -28,7 +29,8 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#programa.
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
-        #self.dir_func.printFunctions()
+        self.dir_func.printFunctions()
+        self.constTable.printConstants()
         self.quadruples_helper.printQuadruples()
 
         # 6. Delete DirFunc and current VarTable
@@ -49,6 +51,9 @@ class little_duckListener(ParseTreeListener):
         #    if not -> add id-name and current-type to current VarTable
         for var in self.variables_to_add:
             self.dir_func.addVariable(self.current_function, var, current_type)
+            address = self.memoryManager.allocate(current_type)
+            created_var = self.dir_func.getVariable(self.current_function, var)
+            created_var.updateMemoryAddress(address)
         self.variables_to_add = []
 
 
@@ -58,7 +63,20 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#cte.
     def exitCte(self, ctx:little_duckParser.CteContext):
-        pass
+        if ctx.CTE_INT():
+            address = self.constTable.addConstant(ctx.CTE_INT().getText(), 'int')
+            if address is None:
+                address = self.memoryManager.allocate('cte')
+                const = self.constTable.getConstant(ctx.CTE_INT().getText())
+                const.updateMemoryAddress(address)
+        elif ctx.CTE_FLOAT():
+            address = self.constTable.addConstant(ctx.CTE_FLOAT().getText(), 'float')
+            if address is None:
+                address = self.memoryManager.allocate('cte')
+                const = self.constTable.getConstant(ctx.CTE_FLOAT().getText())
+                const.updateMemoryAddress(address)
+        else:
+            print("ERROR ADDING TO CONST TABLE")
 
 
     # Enter a parse tree produced by little_duckParser#list_ids.

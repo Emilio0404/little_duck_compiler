@@ -16,7 +16,7 @@ class DirFunc():
         if function_name in self.functions:
             self.functions[function_name].addVariable(var_name, var_type)
         else:
-            print('MULTIPLE DECLARATION ERROR: NAME ALREADY IN USE')
+            print('ERROR: FUNC NOT FOUND')
             sys.exit(1)
 
     def getVariable(self, function_name, variable_name):
@@ -49,8 +49,7 @@ class VarsTable():
 
     def addVariable(self, name, type):
         if name not in self.variables:
-            value = "NaN"
-            self.variables[name] = Variable(name, type, value)
+            self.variables[name] = Variable(name, type)
         else:
             print('MULTIPLE DECLARATION ERROR: VARIABLE NAME', name, 'ALREADY IN USE')
             sys.exit(1)
@@ -63,14 +62,41 @@ class VarsTable():
 
     def printVars(self):
         for key, value in self.variables.items():
-            print("        ", value.name, value.type)
+            print("        ", value.name, value.type, value.address)
 
 
 class Variable():
-    def __init__(self, name, type, value):
+    def __init__(self, name, type):
         self.name = name
         self.type = type
-        self.value = value
+        self.address = None
+
+    def updateMemoryAddress(self, address):
+        self.address = address
+
+
+class ConstTable():
+    def __init__(self):
+        self.constants = {}
+
+    def addConstant(self, constant, type):
+        if constant not in self.constants:
+            self.constants[constant] = Variable(constant, type)
+            return None
+        # print("Constant creation omitted: constant already exists")
+        return self.constants[constant].address
+    
+    def getConstant(self, constant):
+        if constant in self.constants:
+            return self.constants[constant]
+        print("ERROR: CONSTANT NOT FOUND")
+        sys.exit(1)
+
+    def printConstants(self):
+        print("=========================================")
+        print("CONST_TABLE")
+        for key, value in self.constants.items():
+            print('     ', 'const', key, 'add', value.address)
 
 
 class SemanticCube():
