@@ -2,10 +2,12 @@ program quadruples_cycle;
     var A, B: int;
 
     main {
-        A = B;
+        A = 1;
+        B = 2;
 
         do {
             B = A;
+            B = -100;
         } while (A > B);
 
         B = A;

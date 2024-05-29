@@ -6,7 +6,7 @@ program comparisons;
         B = 3;
         if (A > B) {
             print(1);
-        } 
+        }; 
 
         A = 1;
         if (A < B) {
