@@ -36,7 +36,7 @@ class little_duckListener(ParseTreeListener):
         #self.constTable.printConstants()
         #self.quadruples_helper.printQuadruples()
 
-        # 6. Delete DirFunc and current VarTable
+        # 7. Delete DirFunc and current VarTable
         del self.dir_func
 
 
@@ -49,9 +49,8 @@ class little_duckListener(ParseTreeListener):
         # 4. current_type = type
         current_type = ctx.getText()
 
-        # 5. Search for id-name in current VarTable
-        #    if found -> Error “multiple declaration”
-        #    if not -> add id-name and current-type to current VarTable
+        # 6. and 11. add variables to function directory
+        #            allocate neccesary memory
         for var in self.variables_to_add:
             self.dir_func.addVariable(self.current_function, var, current_type)
             address = self.memoryManager.allocate(current_type)
@@ -86,7 +85,7 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#list_ids.
     def enterList_ids(self, ctx:little_duckParser.List_idsContext):
-        # For 5. save variables to a list and add them after having type
+        # For 5. adn 10. save variables to a list and add them after having type
         variable_name = ctx.ID().getText()
         self.variables_to_add.append(variable_name)
 
@@ -172,12 +171,12 @@ class little_duckListener(ParseTreeListener):
         id_name = ctx.ID().getText()
         var = self.dir_func.getVariable(self.current_function, id_name)
 
-        self.quadruples_helper.pushOperand(var.address)
+        self.quadruples_helper.pushOperand(var.address) # 10.
         self.quadruples_helper.pushOperator('=')
 
     # Exit a parse tree produced by little_duckParser#assign.
     def exitAssign(self, ctx:little_duckParser.AssignContext):
-        topOperator = self.quadruples_helper.topOperator()
+        topOperator = self.quadruples_helper.topOperator() # 11.
         if topOperator == '=':
             right_operand = self.quadruples_helper.popOperand()
             left_operand = self.quadruples_helper.popOperand()
@@ -201,7 +200,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#mas_exp.
     def exitMas_exp(self, ctx:little_duckParser.Mas_expContext):
-        topOperator = self.quadruples_helper.topOperator()
+        topOperator = self.quadruples_helper.topOperator() # 9.
         if topOperator == '>' or topOperator == '<' or topOperator == '!=':
             right_operand = self.quadruples_helper.popOperand()
             right_type = self.quadruples_helper.popType()
@@ -222,7 +221,7 @@ class little_duckListener(ParseTreeListener):
     # Enter a parse tree produced by little_duckParser#expression_operator.
     def enterExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
         comparision_operator = ctx.getText()
-        self.quadruples_helper.pushOperator(comparision_operator)
+        self.quadruples_helper.pushOperator(comparision_operator) # 8.
 
     # Exit a parse tree produced by little_duckParser#expression_operator.
     def exitExpression_operator(self, ctx:little_duckParser.Expression_operatorContext):
@@ -241,7 +240,7 @@ class little_duckListener(ParseTreeListener):
     # Enter a parse tree produced by little_duckParser#exp_operator.
     def enterExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
         operator = ctx.getText()
-        self.quadruples_helper.pushOperator(operator)
+        self.quadruples_helper.pushOperator(operator) # 2.
 
     # Exit a parse tree produced by little_duckParser#exp_operator.
     def exitExp_operator(self, ctx:little_duckParser.Exp_operatorContext):
@@ -254,7 +253,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#termino.
     def exitTermino(self, ctx:little_duckParser.TerminoContext):
-        topOperator = self.quadruples_helper.topOperator()
+        topOperator = self.quadruples_helper.topOperator() # 4.
         if topOperator == '+' or topOperator == '-':
             right_operand = self.quadruples_helper.popOperand()
             right_type = self.quadruples_helper.popType()
@@ -275,7 +274,7 @@ class little_duckListener(ParseTreeListener):
     # Enter a parse tree produced by little_duckParser#termino_operator.
     def enterTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
         operator = ctx.getText()
-        self.quadruples_helper.pushOperator(operator)
+        self.quadruples_helper.pushOperator(operator) # 3.
 
     # Exit a parse tree produced by little_duckParser#termino_operator.
     def exitTermino_operator(self, ctx:little_duckParser.Termino_operatorContext):
@@ -288,7 +287,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#factor.
     def exitFactor(self, ctx:little_duckParser.FactorContext):
-        topOperator = self.quadruples_helper.topOperator()
+        topOperator = self.quadruples_helper.topOperator() # 5.
         if topOperator == '*' or topOperator == '/':
             right_operand = self.quadruples_helper.popOperand()
             right_type = self.quadruples_helper.popType()
@@ -308,11 +307,11 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#parenthesis_factor_expression.
     def enterParenthesis_factor_expression(self, ctx:little_duckParser.Parenthesis_factor_expressionContext):
-        self.quadruples_helper.pushOperator('(')
+        self.quadruples_helper.pushOperator('(') # 6.
 
     # Exit a parse tree produced by little_duckParser#parenthesis_factor_expression.
     def exitParenthesis_factor_expression(self, ctx:little_duckParser.Parenthesis_factor_expressionContext):
-        self.quadruples_helper.popOperator()
+        self.quadruples_helper.popOperator() # 7.
 
 
     # Enter a parse tree produced by little_duckParser#factor_value.
@@ -401,7 +400,7 @@ class little_duckListener(ParseTreeListener):
         else:
             print("ERROR")
 
-        quad = Quadruple(operation_codes[self.printOperator], -1, -1, result)
+        quad = Quadruple(operation_codes[self.printOperator], -1, -1, result) # 12.
         self.quadruples_helper.addQuadruple(quad)
 
 
@@ -433,7 +432,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#condition.
     def exitCondition(self, ctx:little_duckParser.ConditionContext):
-        end = self.quadruples_helper.popJump()
+        end = self.quadruples_helper.popJump() # 2.
         self.quadruples_helper.fillJump(end)
     
         # Enter a parse tree produced by little_duckParser#if_condition.
@@ -442,7 +441,7 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#if_condition.
     def exitIf_condition(self, ctx:little_duckParser.If_conditionContext):
-        condition_type = self.quadruples_helper.popType()
+        condition_type = self.quadruples_helper.popType() # 1.
         if condition_type == 'bool':
             result = self.quadruples_helper.popOperand()
             quad = Quadruple(operation_codes['GOTOF'], result, -1, None)
@@ -454,7 +453,7 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#end_condition.
     def enterEnd_condition(self, ctx:little_duckParser.End_conditionContext):
-        quad = Quadruple(operation_codes['GOTO'], -1, -1, None)
+        quad = Quadruple(operation_codes['GOTO'], -1, -1, None) # 3.
         false = self.quadruples_helper.popJump()
         self.quadruples_helper.pushJump()
         self.quadruples_helper.addQuadruple(quad)
@@ -504,10 +503,10 @@ class little_duckListener(ParseTreeListener):
 
     # Enter a parse tree produced by little_duckParser#funcs.
     def enterFuncs(self, ctx:little_duckParser.FuncsContext):
-        # 7. Prepare DirFunc to add new function
+        # 8. Prepare DirFunc to add new function
         func = ctx.ID().getText()
         self.current_function = func
-        self.current_type = 'void' # 8. function type is always void
+        self.current_type = 'void' # function type is always void
         
         # 9. Add function to dir_func, 10. VarsTable creation is done automatically
         self.dir_func.addFunction(self.current_function, self.current_type)
