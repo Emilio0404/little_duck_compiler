@@ -77,3 +77,9 @@ class VirtualMachine():
         elif operation == 12:
             value_to_print = self.memory.getValue(result)
             print(str(value_to_print), end=' ')
+
+        elif operation == 13:
+            left_value = self.memory.getValue(left)
+            right_value = self.memory.getValue(right)
+            condition_result = left_value and right_value
+            self.memory.updateValue(condition_result, result)

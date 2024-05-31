@@ -32,9 +32,11 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#programa.
     def exitPrograma(self, ctx:little_duckParser.ProgramaContext):
-        #self.dir_func.printFunctions()
-        #self.constTable.printConstants()
-        #self.quadruples_helper.printQuadruples()
+        self.dir_func.printFunctions()
+        self.constTable.printConstants()
+        print("\n=========================================")
+        self.quadruples_helper.printQuadruples()
+        print()
 
         # 7. Delete DirFunc and current VarTable
         del self.dir_func
@@ -385,7 +387,7 @@ class little_duckListener(ParseTreeListener):
             self.isMultiPrint = False
             self.printOperator = 'printn'
 
-        if ctx.parentCtx.expression():
+        if ctx.parentCtx.mega_expression():
             result = self.quadruples_helper.popOperand()
         elif ctx.parentCtx.CTE_STRING():
             incoming_string = ctx.parentCtx.CTE_STRING().getText()
@@ -622,6 +624,48 @@ class little_duckListener(ParseTreeListener):
 
     # Exit a parse tree produced by little_duckParser#open_parenthesis.
     def exitOpen_parenthesis(self, ctx:little_duckParser.Open_parenthesisContext):
+        pass
+
+        # Enter a parse tree produced by little_duckParser#mega_expression.
+    def enterMega_expression(self, ctx:little_duckParser.Mega_expressionContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#mega_expression.
+    def exitMega_expression(self, ctx:little_duckParser.Mega_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by little_duckParser#mas_mega_exp.
+    def enterMas_mega_exp(self, ctx:little_duckParser.Mas_mega_expContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#mas_mega_exp.
+    def exitMas_mega_exp(self, ctx:little_duckParser.Mas_mega_expContext):
+        topOperator = self.quadruples_helper.topOperator() # 9.
+        if topOperator == 'and':
+            right_operand = self.quadruples_helper.popOperand()
+            right_type = self.quadruples_helper.popType()
+            left_operand = self.quadruples_helper.popOperand()
+            left_type = self.quadruples_helper.popType()
+            operator = self.quadruples_helper.popOperator()
+
+            # result = self.quadruples_helper.generateTempVariable()
+            result_type = self.semantic_cube.resolveType(left_type, right_type, operator)
+            result_address = self.memoryManager.allocate('bool')
+
+            self.quadruples_helper.pushOperand(result_address)
+            self.quadruples_helper.pushType(result_type)
+            quad = Quadruple(operation_codes[operator], left_operand, right_operand, result_address)
+            self.quadruples_helper.addQuadruple(quad)
+
+
+    # Enter a parse tree produced by little_duckParser#mega_exp_op.
+    def enterMega_exp_op(self, ctx:little_duckParser.Mega_exp_opContext):
+        and_operator = ctx.getText()
+        self.quadruples_helper.pushOperator(and_operator) # 8.
+
+    # Exit a parse tree produced by little_duckParser#mega_exp_op.
+    def exitMega_exp_op(self, ctx:little_duckParser.Mega_exp_opContext):
         pass
 
 

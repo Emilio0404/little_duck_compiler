@@ -21,6 +21,10 @@ statement: assign | condition | cycle | f_call | print | expression;
 
 assign: ID equal_sign expression ';';
 
+mega_expression: expression mas_mega_exp;
+mas_mega_exp: (mega_exp_op expression)?;
+mega_exp_op: 'and';
+
 expression: exp mas_exp;
 mas_exp: (expression_operator exp)?;
 expression_operator: '>' |'<' | '!=';
@@ -38,13 +42,13 @@ factor_operator: ('+' | '-');
 value: ID | cte;
 
 print: 'print(' list_prints ')' ';';
-list_prints: (expression print_more_expressions) | CTE_STRING print_more_expressions;
+list_prints: (mega_expression print_more_expressions) | CTE_STRING print_more_expressions;
 print_more_expressions: (',' list_prints)?;
 
-cycle: do body while open_parenthesis expression close_parenthesis';';
+cycle: do body while open_parenthesis mega_expression close_parenthesis';';
 
 condition: if if_condition body end_condition? ';';
-if_condition: open_parenthesis expression close_parenthesis;
+if_condition: open_parenthesis mega_expression close_parenthesis;
 end_condition: ELSE body;
 
 f_call: ID '(' has_exp ')' ';';

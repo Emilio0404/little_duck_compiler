@@ -8,7 +8,8 @@ semantic_cube = {
                     '=': 'int', 
                     '!=': 'bool', 
                     '>': 'bool', 
-                    '<': 'bool'
+                    '<': 'bool',
+                    'and': 'bool'
                 },
             'float': {
                     '+': 'float', 
@@ -18,6 +19,7 @@ semantic_cube = {
                     '=': 'bool', 
                     '!=': 'bool', 
                     '>': 'bool', 
+                    'and': 'bool'
                 }
         },
     'float': {
@@ -29,7 +31,8 @@ semantic_cube = {
                     '=': 'float', 
                     '!=': 'bool', 
                     '>': 'bool', 
-                    '<': 'bool'
+                    '<': 'bool',
+                    'and': 'bool'
                 },
             'float': {
                     '+': 'float', 
@@ -38,7 +41,13 @@ semantic_cube = {
                     '/': 'float', 
                     '=': 'bool', 
                     '!=': 'bool', 
-                    '>': 'bool', 
+                    '>': 'bool',
+                    'and': 'bool'
                 }
+        },
+        'bool': {
+            'bool' : {
+                'and': 'bool'
+            }
         }
 }

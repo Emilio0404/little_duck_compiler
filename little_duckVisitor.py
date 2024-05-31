@@ -74,6 +74,21 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by little_duckParser#mega_expression.
+    def visitMega_expression(self, ctx:little_duckParser.Mega_expressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#mas_mega_exp.
+    def visitMas_mega_exp(self, ctx:little_duckParser.Mas_mega_expContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by little_duckParser#mega_exp_op.
+    def visitMega_exp_op(self, ctx:little_duckParser.Mega_exp_opContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by little_duckParser#expression.
     def visitExpression(self, ctx:little_duckParser.ExpressionContext):
         return self.visitChildren(ctx)

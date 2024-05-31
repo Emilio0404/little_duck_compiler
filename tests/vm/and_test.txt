@@ -1,0 +1,12 @@
+program and_test;
+    var A, B, C: int;
+    
+    main {
+        A = 9;
+        B = 3;
+        if (A > B and 100 < 99) {
+            print(":D carita feliz");
+        } else {
+            print("D: no carita feliz");
+        };
+    } end

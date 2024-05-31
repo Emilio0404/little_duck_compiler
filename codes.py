@@ -11,5 +11,6 @@ operation_codes = {
     "GOTO" : 9,
     "GOTOF" : 10,
     "GOTOV" : 11,
-    "print" : 12
+    "print" : 12,
+    "and" : 13
 }
